@@ -3,6 +3,7 @@ class Funcionario:
         self.numero_funcional = numero_funcional
         self.nome = nome
         self.salario = salario
+        self.estado = True
   
 
 class Projeto:
@@ -13,4 +14,5 @@ class Projeto:
         self.tempo_estimado = tempo_estimado
         self.valor_estimado = valor_estimado
         self.numero_func = numero_func
+        self.estado = True
  
