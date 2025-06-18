@@ -4,6 +4,9 @@ class Funcionario:
         self.nome = nome
         self.salario = salario
         self.estado = True
+    
+    def __str__(self):
+        return f"{self.numero_funcional}"
   
 
 class Projeto:
@@ -15,4 +18,7 @@ class Projeto:
         self.valor_estimado = valor_estimado
         self.numero_func = numero_func
         self.estado = True
+    
+    def __str__(self):
+        return f"{self.nome}"
  
