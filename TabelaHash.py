@@ -13,7 +13,7 @@ class TabelaHash:
         '''
     
     def inserir(self, valor):
-        # Recebe um par chave - valor, busca o endereço do elemento e insere os dados no endereço encontrado
+        # Recebe um objeto, busca o endereço hash da chave e insere os dados no primeiro endereço livre encontrado
         if isinstance(valor, Funcionario):
             chave = valor.numero_funcional
         elif isinstance(valor, Projeto):
@@ -24,63 +24,54 @@ class TabelaHash:
         
         if bucket:
             for elem in bucket:
-                if elem[0] == chave and elem[1].estado:
-                    return -1
+                if elem[0] == chave and elem[1].estado: # Retorna erro caso a chave já exista na tabela
+                    raise("Chave já existe na tabela")
         
-        bucket.append((chave, valor)) # Valor deve ser o endereço do objeto, seja Funcionario ou Projeto
+        bucket.append((chave, valor)) # Valor deve ser o endereço do objeto, seja ele Funcionario ou Projeto
 
     def remover(self, chave):
-        # Recebe uma chave, busca o endereço do elemento e altera seu status para "excluído"
+        # Recebe uma chave, busca o endereço do elemento e altera seu status para "False"
         indices = self._buscar_ativo(chave)
+        
         bucket = self.tabela[indices[0]] # Bucket dentro da tabela hash
         elem = bucket[indices[1]] # Elemento tupla (chave, valor)
-        alvo = elem[1] # Objeto alvo, seja Funcionario ou Projeto
+        alvo = elem[1] # Objeto alvo
         alvo.estado = False
     
     def alterar(self, chave, valores: dict):
         # Recebe uma chave, e um dict valores com os dados que deseja alterar, busca o endereço do elemento e altera os dados no endereço encontrado
-        indices = self._buscar_ativo(chave) # Busca o endereço do item na Tabela Hash se estiver ativo
+        indices = self._buscar_ativo(chave)
+        
         if not indices:
             return -1
         
         alvo = self.tabela[indices[0]][indices[1]][1] # Seleciona o endereço de memória do objeto alvo
         
         for nome_atributo, valor_atributo in valores.items():
-            if hasattr(alvo, nome_atributo): # Verifica se os atributos em valores, correspondem ao do objeto
-                setattr(alvo, nome_atributo, valor_atributo) # Altera os dados do objeto, mantendo o ponteiro
+            if hasattr(alvo, nome_atributo): # Verifica se os atributos em 'valores', correspondem aos do objeto
+                setattr(alvo, nome_atributo, valor_atributo) # Altera os dados do objeto, mantendo o seu ponteiro
     
     def _funcao_hash(self, chave):
         # Recebe a chave, e retorna o índice da chave na tabela
         if isinstance(chave, str): # Chave seja string
-            tamanho = self.tamanho
-            chaveUnica = chave
-            tamanhoLista = len(chaveUnica)
-            Letra = list(chaveUnica)
             soma = 0
-            
-            for i in range(tamanhoLista):
-                resultadoLetra = ord(Letra[i])
-                soma = soma + resultadoLetra
-
-            posiChave = soma % tamanho
-
-            return posiChave
-
-        elif isinstance(chave, int): # Caso seja int
-            posiChave = chave % self.tamanho
-
-            return posiChave
+            for letra in chave:
+                soma += ord(letra)
+            chave = soma
+        
+        return chave % self.tamanho
 
     def _buscar_ativo(self, chave):
-        # Recebe uma chave, e retorna o endereço do item ativo encontrado em uma tupla: (indice_do_bucket, indice_do_elemento)
+        # Recebe uma chave, e retorna o endereço do item ativo encontrado, na forma de uma tupla: (indice_do_bucket_na_tabela, indice_do_elemento_no_bucket)
         indice = self._funcao_hash(chave)
         bucket = self.tabela[indice]
         
         if not bucket:
-            return -1
+            raise KeyError("Registro não encontrado")
         for elem in bucket:
             if elem[0] == chave and elem[1].estado:
-                return (indice, bucket.index(elem))        
+                return (indice, bucket.index(elem))
+        raise KeyError("O registro não existe ou foi excluído")      
 
     def __str__(self):
         return "tabela = [\n    " + ",\n    ".join(str(self.tabela[i]) for i in range(self.tamanho)) + "\n]"
@@ -90,7 +81,7 @@ func1 = Funcionario(123, "Alfredo", 15000)
 func2 = Funcionario(452, "Junior", 50000)
 func3 = Funcionario(3, "Julia", 2000)
 proj1 = Projeto("Projetinhopae", "10/05/2032", "01/02/0332", 10, 10000, 123)
-proj2 = Projeto("DeiaLinda", "10/05/2032", "01/02/0332", 2, 100000, 452)
+proj2 = Projeto("Nasa", "10/05/2032", "01/02/0332", 2, 100000, 452)
 proj3 = Projeto("SistemasDigitais", "10/05/2032", "01/02/0332", 5, 12000, 452)
 
 tableFunc = TabelaHash()
@@ -103,9 +94,9 @@ tableProj.inserir(proj1)
 tableProj.inserir(proj2)
 tableProj.inserir(proj3)
 
-print(tableFunc.tabela[3][0][1])
+tableFunc.remover(123)
 
 dados = {"nome": "Alexandre", "salario": 20000}
 tableFunc.alterar(123, dados)
 
-print(tableFunc.tabela[3][0][1])
+# print(tableFunc.tabela[3][0][1])
