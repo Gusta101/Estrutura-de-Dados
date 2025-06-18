@@ -6,7 +6,7 @@ def busca_funcionarios_bonus():
     # Retorna uma lista de numeros de funcionario, em ordem decrescente de salario
     pass
 
-def busca_funcionarios_ativos():
+def busca_gerentes():
     # Retorna uma lista de numeros de funcionarios responsáveis por projetos em andamento, em ordem alfabética
     pass
 

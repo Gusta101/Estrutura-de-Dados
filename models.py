@@ -6,7 +6,7 @@ class Funcionario:
         self.estado = True
     
     def __str__(self):
-        return f"{self.numero_funcional}"
+        return f"=> Funcionário: {self.numero_funcional}; Nome: {self.nome}; Salario: {self.salario}; Estado: {self.estado}"
   
 
 class Projeto:
@@ -20,5 +20,5 @@ class Projeto:
         self.estado = True
     
     def __str__(self):
-        return f"{self.nome}"
+        return f"Projeto: {self.nome}"
  
