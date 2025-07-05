@@ -1,4 +1,4 @@
-from models import Funcionario, Projeto
+from models.models import Funcionario, Projeto
 
 class TabelaHash:
     def __init__(self, tamanho=10):
