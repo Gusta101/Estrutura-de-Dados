@@ -1,6 +1,5 @@
 from models.Funcionario import Funcionario
 from models.Projeto import Projeto
-from models.VetorLimitado import VetorLimitado
 
 from data import vetor_proj
 from data import vetor_func
