@@ -2,11 +2,9 @@ from models.Funcionario import Funcionario
 from models.Projeto import Projeto
 from models.VetorLimitado import VetorLimitado
 
-# Vetor de Funcionários
-vetor_func = VetorLimitado(500)
+from data import vetor_proj
+from data import vetor_func
 
-# Vetor de Projetos
-vetor_proj = VetorLimitado(2000)
 
 # INSERÇÃO
 # Insere funcionário no vetor principal "vetor_func"
@@ -31,7 +29,17 @@ def inserir_projeto(dados: list):
     data_termino = dados[5]
     projeto = Projeto(nome=nome, data_inicio=data_inicio, data_termino=data_termino, tempo_estimado=tempo_estimado, valor_estimado=valor_estimado, numero_func=n_funcionario)
     
-    if vetor_func.append(projeto):
+    if vetor_proj.append(projeto):
         return str(vetor_proj)
     else:
         return -1
+
+
+# REMOÇÃO
+# Remove funcionario
+def remover_funcionario(chave):
+    return vetor_func.remover(chave)
+
+# Remove projeto
+def remover_projeto(chave):
+    return vetor_proj.remover(chave)

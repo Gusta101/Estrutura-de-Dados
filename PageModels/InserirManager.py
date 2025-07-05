@@ -31,7 +31,7 @@ class InserirManager:
         ###################################################################################################################################
 
     # FUNÇÕES DA TELA INSERIR
-    # Remove os valores das caixas de texto da tela Inserir, conforme a seção indicada (0 => funcionário, 1 => Projeto)
+    # Clear - Remove os valores das caixas de texto da tela Inserir, conforme a seção indicada (0 => funcionário, 1 => Projeto)
     def clear_inputs(self, tipo):
         if tipo == 0:
             inputs = [self.input_f_nome, self.input_f_n_func, self.input_f_salario]
@@ -42,7 +42,7 @@ class InserirManager:
         for inp in inputs:
             inp.setText("")
             
-    # Envia as informações da tela para as funções de inserção em data_utils.py
+    # Inserir - Envia as informações da tela para as funções de inserção em data_utils.py
     def inserir_dados(self, tipo):
         if tipo == 0:
             dados_func = [
@@ -52,7 +52,7 @@ class InserirManager:
             ]
             response = inserir_funcionario(dados_func)
             if response:
-                self.text_result += f'Funcionário N {dados_func[1]} inserido com sucesso, vetor atual:\n'
+                self.text_result += f'Funcionário N {dados_func[1]} inserido com sucesso, vetor atual:\n\n'
                 self.text_result += response
             else:
                 self.text_result += "Não foi possível inserir"
@@ -65,10 +65,16 @@ class InserirManager:
                 self.date_p_inicio.text(),
                 self.data_p_termino.text(),
             ]
-            self.text_result = inserir_projeto(dados_proj)
+            response = inserir_projeto(dados_proj)
+            if response:
+                self.text_result += f'Projeto {dados_proj[0]} inserido com sucesso, vetor atual:\n\n'
+                self.text_result += response
+            else:
+                self.text_result += "Não foi possível inserir"
         
         self.print_log()
     
+    # Log
     def print_log(self):
         self.log_inserir.setText(self.text_result)
         self.text_result = ""

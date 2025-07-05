@@ -2,33 +2,52 @@ from models.Funcionario import Funcionario
 from models.Projeto import Projeto
 
 class VetorLimitado:
-    def __init__(self, tamanho_max=10, vetor:list=[]):
+    def __init__(self, tamanho_max=10, vetor=None):
         self.tamanho_max = tamanho_max
-        self.vetor = vetor
+        self.vetor = vetor if vetor is not None else []
     
     # Adiciona dados ordenadamente no vetor. O tipo do dado deve ser informado (0 => Funcionario, 1 => Projeto)
     def append(self, dado):
-        if len(self.vetor) < self.tamanho_max: # Encerra a função caso o tamanho máximo tenha sido atingido
-            if len(self.vetor) <= 0: # Caso seja o primeiro valor apenas adiciona e encerra a função
+        tamanho = len(self.vetor)
+        if tamanho < self.tamanho_max: # Encerra a função caso o tamanho máximo tenha sido atingido
+            if tamanho <= 0: # Caso seja o primeiro valor apenas adiciona e encerra a função
                 self.vetor.append(dado)
                 return 1
-            ind = 0
+            ind = tamanho
             
-            if type(self.vetor[0]) == Funcionario.__class__:
-                num = self.vetor[ind].numero_funcional
-                while num < dado.numero_funcional:
-                    ind += 1
-                    num = self.vetor[ind].numero_funcional
+            if isinstance(self.vetor[0], Funcionario):
+                for i in range(tamanho):
+                    if dado.numero_funcional < self.vetor[i].numero_funcional:
+                        ind = i
+                        break
                     
-            if type(self.vetor[0]) == Projeto.__class__:
-                nome = self.vetor[ind].nome
-                while nome < dado.nome:
-                    ind += 1
-                    num = self.vetor[ind].nome
+            if isinstance(self.vetor[0], Projeto):
+                for i in range(tamanho):
+                    if dado.nome < self.vetor[i].nome:
+                        ind = i
+                        break
                     
             self.vetor.insert(ind, dado)
             return 1
         return 0
+    
+    def buscar_item(self, chave):
+        tamanho = len(self.vetor)
+        if tamanho == 0:
+            return -1
+        for i in range(tamanho):
+            if isinstance(self.vetor[0], Funcionario) and chave == self.vetor[i].numero_funcional:
+                return i
+            if isinstance(self.vetor[0], Projeto) and chave == self.vetor[i].nome:
+                return i
+        return -1
+    
+    def remover(self, chave):
+        indice = self.buscar_item(chave)
+        if indice:
+            self.vetor[indice].estado = False
+            return 1
+        return -1
     
     def __str__(self):
         return "\n".join(str(item) for item in self.vetor)

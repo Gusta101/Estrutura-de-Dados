@@ -7,6 +7,7 @@ from PageModels.InserirManager import InserirManager
 # from PageModels.AlterarManager import AlterarManager
 # from PageModels.BuscarManager import BuscarManager
 
+from models.VetorLimitado import VetorLimitado
 from views.MainWindowUi import Ui_MainWindow
 
 
