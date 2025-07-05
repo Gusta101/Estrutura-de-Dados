@@ -9,4 +9,4 @@ class Projeto:
         self.estado = True
     
     def __str__(self):
-        return f"Projeto: {self.nome}"
+        return f"=> Projeto: {self.nome}"
