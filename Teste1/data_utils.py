@@ -43,3 +43,12 @@ def remover_funcionario(chave):
 # Remove projeto
 def remover_projeto(chave):
     return vetor_proj.remover(chave)
+
+# AUXILIARES
+# Retorna uma lista de números de funcionários ativos do vetor_func
+def get_numeros_func_ativos():
+    return [str(func.numero_funcional) for func in vetor_func.vetor if func.estado]
+
+# Retorna uma lista de nomes de projetos ativos do vetor_proj
+def get_nomes_proj_ativos():
+    return [proj.nome for proj in vetor_proj.vetor if proj.estado]
