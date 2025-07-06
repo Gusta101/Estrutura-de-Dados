@@ -83,7 +83,7 @@ class MenuManager:
         escolha = int(input(escolha_func_proj))
         if escolha == 1:
             print(vetor_func)
-            chave = int(input(escolha_chave + " (Número funcional)"))
+            chave = int(input(insira_chave + " (Número funcional)"))
             ind = vetor_func.buscar_item(chave)
             if ind < 0:
                 print(chave_nao_encontrada)
@@ -94,7 +94,7 @@ class MenuManager:
             print("Dados alterados:\n" + func)
         elif escolha == 2:
             print(vetor_proj)
-            chave = int(input(escolha_chave + " (Nome do projeto)"))
+            chave = int(input(insira_chave + " (Nome do projeto)"))
             ind = vetor_proj.buscar_item(chave)
             if ind < 0:
                 print(chave_nao_encontrada)
@@ -118,14 +118,14 @@ class MenuManager:
         escolha = int(input(escolha_func_proj))
         if escolha == 1:
             print(" - ".join([str(func.numero_funcional) for func in vetor_func.vetor if func.estado]))
-            chave = int(input(escolha_chave))
+            chave = int(input(insira_chave))
             if vetor_func.remover(chave):
                 print(f'Funcionario {chave} removido com sucesso')
             else:
                 print(chave_nao_encontrada)
         elif escolha == 2:
             print(" - ".join([proj.nome for proj in vetor_proj.vetor if proj.estado]))
-            chave = input(escolha_chave)
+            chave = input(insira_chave)
             if vetor_proj.remover(chave):
                 print(f'Funcionario {chave} removido com sucesso')
             else:

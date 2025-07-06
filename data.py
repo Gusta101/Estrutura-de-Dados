@@ -3,14 +3,14 @@ from models.Funcionario import Funcionario
 from models.Projeto import Projeto
 
 f1 = Funcionario(10, "Ander2", 15000)
-f2 = Funcionario(5, "Ander1", 15000)
+f2 = Funcionario(5, "Ander1", 7500)
 f3 = Funcionario(15, "Ander3", 15000)
-f4 = Funcionario(20, "Bruna", 18000)
+f4 = Funcionario(20, "Bruna", 8000)
 f5 = Funcionario(25, "Carlos", 12000)
-f6 = Funcionario(12, "Daniela", 16000)
+f6 = Funcionario(12, "Daniela", 1000)
 f7 = Funcionario(18, "Eduardo", 14000)
 f8 = Funcionario(8, "Fernanda", 13500)
-f9 = Funcionario(30, "Gustavo", 17000)
+f9 = Funcionario(30, "Gustavo", 3000)
 f10 = Funcionario(22, "Helena", 15500)
 
 p1 = Projeto("Projeto teste 1", "02/08/2023", "15/09/2023", 14, 50000, 10)

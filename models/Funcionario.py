@@ -1,8 +1,8 @@
 class Funcionario:
     def __init__(self, numero_funcional, nome, salario):
-        self.numero_funcional = int(numero_funcional)
-        self.nome = nome
-        self.salario = float(salario)
+        self.numero_funcional = numero_funcional
+        self._nome = nome
+        self.salario = salario
         self.estado = True
     
     def __str__(self):
