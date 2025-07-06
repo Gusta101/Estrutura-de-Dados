@@ -1,7 +1,7 @@
 class Funcionario:
     def __init__(self, numero_funcional, nome, salario):
         self.numero_funcional = numero_funcional
-        self._nome = nome
+        self.nome = nome
         self.salario = salario
         self.estado = True
     

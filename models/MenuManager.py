@@ -1,16 +1,19 @@
 import os
+import random
 
 from models.BuscasManager import BuscasManager
 from models.Funcionario import Funcionario
 from models.Projeto import Projeto
 
 from data import vetor_func, vetor_proj
+from models.EmailManager import EmailManager
 from textos import *
 
 class MenuManager:
     def __init__(self):
         self.text = ""
         self.buscas_manager = BuscasManager()
+        self.email_manager = EmailManager()
 
     # MENU PRINCIPAL
     def menu(self):
@@ -27,6 +30,10 @@ class MenuManager:
                 self.remover_geral()
             case "5":
                 self.buscas_manager.menu()
+            case "6":
+                self.email_manager.menu()
+            case "0":
+                return
             case _:
                 print(escolha_invalida)
         self.text = ""
@@ -52,6 +59,7 @@ class MenuManager:
         escolha = int(input(escolha_func_proj))
         if escolha == 1: # Cria o objeto Funcionario e insere no vetor ordenado
             n_func = int(input(str_numero_func))
+            if not n_func: n_func = random.randint(1, 500)
             nome_func = input(str_nome_func)
             salario_func = float(input(str_salario_func))
             func = Funcionario(n_func, nome_func, salario_func)
@@ -61,6 +69,7 @@ class MenuManager:
                 print(erro + f'Ja existe um funcionario com esse numero, ou a lista aingiu seu tamanho maximo')
         elif escolha == 2: # Cria o objeto Projeto e insere no vetor ordenado
             nome_proj = input(str_nome_proj)
+            if not nome_proj: nome_proj = "Projeto " + str(random.randint(1, 2000))
             data_inicio = input(str_data_inicio)
             data_termino = input(str_data_termino)
             tempo_estimado = input(str_tempo_estimado)
