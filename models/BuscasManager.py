@@ -16,7 +16,7 @@ class BuscasManager:
             case "2":
                 self.busca_por_salario()
             case "3":
-                pass
+                self.busca_projetos_grandes()
             case "4":
                 pass
             case "5":
@@ -29,7 +29,7 @@ class BuscasManager:
         self.menu()
 
     # 1 - BUSCA FUNCIONÁRIO
-    # Retorna os dados de um funcionário, de acordo com a chave fornecida
+    # Imprime os dados de um funcionário, de acordo com a chave fornecida
     def busca_funcionario(self):
         chave = int(input(insira_chave))
         vetor = vetor_func.vetor
@@ -52,7 +52,7 @@ class BuscasManager:
             return self.busca_binaria(chave, vetor, meio + 1, ultimo)
 
     # 2 - BUSCA POR SALARIO
-    # Retorna uma lista ordenada decrescentemente com Merge Sort, de funcionários com salário maior que 10.000
+    # Imprime uma lista ordenada decrescentemente com Merge Sort, de funcionários com salário maior que 10.000
     def busca_por_salario(self):
         lista = [func for func in vetor_func.vetor if func.salario > 10000]
         self.merge_sort_dec(lista)
@@ -90,4 +90,19 @@ class BuscasManager:
                 k += 1
 
     # 3 - BUSCA PROJETOS GRANDES
-    #
+    # Imprime uma lista de projetos sem data de término (em andamento), com valor maior que 500.000, em ordem crescente
+    def busca_projetos_grandes(self):
+        lista = [proj for proj in vetor_proj.vetor if proj.valor_estimado > 500.000 and not proj.data_termino]
+
+    def heap_sort(self): # ordem de valor, heap sort
+        pass
+
+    # 4 - BUSCA PROJETOS COM ATRASO
+    # Imprime uma lista de projetos, em andamento ou não, que passaram do prazo previsto, ordenados pelo tempo de atraso
+    def busca_projetos_atrasados(self): # ordenar com o algoritmo livre, e listar se está em andamento ou não
+        pass
+
+    # 5 - BUSCA GERENTES
+    # Imprime, ordem alfabética, os funcionários responsáveis por projetos em andamento
+    def busca_gerentes(self): # busca o mais otimizada o possível
+        pass
